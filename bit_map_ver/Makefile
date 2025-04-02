@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skatsuya < skatsuya@student.42tokyo.jp>    +#+  +:+       +#+         #
+#    By: shkuroda <shkuroda@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/01 22:26:24 by skatsuya          #+#    #+#              #
-#    Updated: 2025/04/01 22:53:09 by skatsuya         ###   ########.fr        #
+#    Updated: 2025/04/02 21:43:27 by shkuroda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = bsq
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRCS = main.c parser.c parser_utils.c solver.c utility.c reader.c
+SRCS = main.c parser.c parser_utils.c solver.c utility.c reader.c bit_utils.c
 OBJS = $(SRCS:.c=.o)
 HEADERS = bsq.h
 

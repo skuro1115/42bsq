@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bsq.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skatsuya < skatsuya@student.42tokyo.jp>    +#+  +:+       +#+        */
+/*   By: shkuroda <shkuroda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:27:45 by skatsuya          #+#    #+#             */
-/*   Updated: 2025/04/01 23:01:50 by skatsuya         ###   ########.fr       */
+/*   Updated: 2025/04/02 23:10:03 by shkuroda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int			read_file(char *filename, char **buffer);
 
 /* solver.c functions */
 t_square	solve_map(t_map *map);
-void		fill_solution(t_map *map, t_square solution);
+void		fill_solution(t_map *map, t_square *solution);
 int			min3(int a, int b, int c);
 void		init_dp_first_row_col(t_map *map);
 void		process_dp_cell(t_map *map, int i, int j, t_square *solution);
@@ -77,5 +77,9 @@ char		*read_stdin(void);
 char		*expand_buffer(char *buffer, int size, int capacity);
 char		*copy_tmp_to_buffer(char *buffer, char *tmp, int *size);
 int			process_read_chunk(t_buffer *buf, char *tmp, int read_bytes);
+
+/* bit_utils.c functions */
+int			bit_get(char *line, int index);
+void		bit_set(char *line, int index, int value);
 
 #endif

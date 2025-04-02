@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solver.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skatsuya < skatsuya@student.42tokyo.jp>    +#+  +:+       +#+        */
+/*   By: shkuroda <shkuroda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:28:45 by skatsuya          #+#    #+#             */
-/*   Updated: 2025/04/01 22:37:45 by skatsuya         ###   ########.fr       */
+/*   Updated: 2025/04/02 23:10:44 by shkuroda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,40 +50,55 @@ void	init_dp_first_row_col(t_map *map)
 
 void	process_dp_cell(t_map *map, int i, int j, t_square *solution)
 {
-	if (map->grid[i][j] == map->empty)
+	if (bit_get(map->grid[i], j) == 0)
+		map->dp[i][j] = 0;
+	else
 	{
 		map->dp[i][j] = min3(map->dp[i - 1][j], map->dp[i][j - 1], map->dp[i
 				- 1][j - 1]) + 1;
-	}
-	else
-	{
-		map->dp[i][j] = 0;
-	}
-	if (map->dp[i][j] > solution->size)
-	{
-		solution->size = map->dp[i][j];
-		solution->row = i - solution->size + 1;
-		solution->col = j - solution->size + 1;
+		if (map->dp[i][j] > solution->size)
+		{
+			solution->size = map->dp[i][j];
+			solution->row = i;
+			solution->col = j;
+		}
 	}
 }
 
+#include "bsq.h"
+
 t_square	solve_map(t_map *map)
 {
-	t_square	solution;
 	int			i;
 	int			j;
+	t_square	solution;
 
 	solution.size = 0;
 	solution.row = 0;
 	solution.col = 0;
-	init_dp_first_row_col(map);
-	i = 1;
+	i = 0;
 	while (i < map->rows)
 	{
-		j = 1;
+		j = 0;
 		while (j < map->cols)
 		{
-			process_dp_cell(map, i, j, &solution);
+			if (bit_get(map->grid[i], j) == 0)
+				map->dp[i][j] = 0;
+			else if (i == 0 || j == 0)
+				map->dp[i][j] = 1;
+			else
+			{
+				map->dp[i][j] = min3(
+						map->dp[i - 1][j],
+						map->dp[i][j - 1],
+						map->dp[i - 1][j - 1]) + 1;
+			}
+			if (map->dp[i][j] > solution.size)
+			{
+				solution.size = map->dp[i][j];
+				solution.row = i;
+				solution.col = j;
+			}
 			j++;
 		}
 		i++;
@@ -91,18 +106,19 @@ t_square	solve_map(t_map *map)
 	return (solution);
 }
 
-void	fill_solution(t_map *map, t_square solution)
+
+void	fill_solution(t_map *map, t_square *solution)
 {
 	int	i;
 	int	j;
 
-	i = solution.row;
-	while (i < solution.row + solution.size)
+	i = solution->row - solution->size + 1;
+	while (i <= solution->row)
 	{
-		j = solution.col;
-		while (j < solution.col + solution.size)
+		j = solution->col - solution->size + 1;
+		while (j <= solution->col)
 		{
-			map->grid[i][j] = map->full;
+			bit_set(map->grid[i], j, 1);
 			j++;
 		}
 		i++;

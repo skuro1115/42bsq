@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skatsuya < skatsuya@student.42tokyo.jp>    +#+  +:+       +#+        */
+/*   By: shkuroda <shkuroda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:28:05 by skatsuya          #+#    #+#             */
-/*   Updated: 2025/04/01 22:28:10 by skatsuya         ###   ########.fr       */
+/*   Updated: 2025/04/02 22:47:46 by shkuroda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	process_file(char *filename)
 	}
 	free(buffer);
 	solution = solve_map(&map);
-	fill_solution(&map, solution);
+	fill_solution(&map, &solution);
 	print_map(&map);
 	free_map(&map);
 	return (1);
@@ -55,7 +55,7 @@ void	process_stdin(void)
 	}
 	free(buffer);
 	solution = solve_map(&map);
-	fill_solution(&map, solution);
+	fill_solution(&map, &solution);
 	print_map(&map);
 	free_map(&map);
 }

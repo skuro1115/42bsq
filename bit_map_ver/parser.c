@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skatsuya < skatsuya@student.42tokyo.jp>    +#+  +:+       +#+        */
+/*   By: shkuroda <shkuroda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:28:21 by skatsuya          #+#    #+#             */
-/*   Updated: 2025/04/01 23:02:15 by skatsuya         ###   ########.fr       */
+/*   Updated: 2025/04/02 22:07:20 by shkuroda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,15 @@ int	parse_map(t_map *map, char *buffer)
 int	fill_grid_row(t_map *map, char *buffer, int pos, int row)
 {
 	int	j;
+	int	is_empty;
 
 	j = 0;
 	while (j < map->cols)
 	{
 		if (!is_valid_char(map, buffer[pos]))
 			return (-1);
-		map->grid[row][j] = buffer[pos];
+		is_empty = (buffer[pos] == map->empty);
+		bit_set(map->grid[row], j, is_empty);
 		pos++;
 		j++;
 	}

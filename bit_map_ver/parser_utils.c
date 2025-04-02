@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skatsuya < skatsuya@student.42tokyo.jp>    +#+  +:+       +#+        */
+/*   By: shkuroda <shkuroda@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 22:43:19 by skatsuya          #+#    #+#             */
-/*   Updated: 2025/04/01 23:01:26 by skatsuya         ###   ########.fr       */
+/*   Updated: 2025/04/02 22:35:39 by shkuroda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,17 @@ int	count_columns(t_map *map, char *buffer, int pos)
 int	create_map_grid(t_map *map, int rows, int cols)
 {
 	int	i;
+	int	byte_len;
 
 	map->grid = (char **)malloc(sizeof(char *) * rows);
 	map->dp = (int **)malloc(sizeof(int *) * rows);
 	if (!map->grid || !map->dp)
 		return (0);
 	i = 0;
+	byte_len = (cols + 7) / 8;
 	while (i < rows)
 	{
-		map->grid[i] = (char *)malloc(sizeof(char) * cols);
+		map->grid[i] = (char *)malloc(sizeof(char) * byte_len);
 		map->dp[i] = (int *)malloc(sizeof(int) * cols);
 		if (!map->grid[i] || !map->dp[i])
 			return (0);
